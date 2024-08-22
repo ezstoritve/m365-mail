@@ -45,6 +45,15 @@ class M365Transport extends AbstractTransport
 
         $email = MessageConverter::toEmail($sentMessage->getOriginalMessage());
 
+        if ($email->getFrom()) {
+            $fromAddress = $email->getFrom()[0]->getAddress();
+            $fromName = $email->getFrom()[0]->getName();
+        } else {
+            $fromAddress = $this->microsoftGraphService->getMailFromAddress();
+            $fromName = $this->microsoftGraphService->getMailFromName();
+            $email->from(new Address($this->microsoftGraphService->getMailFromAddress(), $this->microsoftGraphService->getMailFromName()));
+        }
+
         $emailData = [
             'message' => [
                 'subject' => $email->getSubject(),
@@ -53,12 +62,32 @@ class M365Transport extends AbstractTransport
                     'content' => $email->getHtmlBody() ?? $email->getTextBody(),
                 ],
                 'toRecipients' => $this->formatRecipients($email->getTo()),
-                'ccRecipients' => $this->formatRecipients($email->getCc()),
-                'bccRecipients' => $this->formatRecipients($email->getBcc()),
-                'replyTo' => $this->formatRecipients($email->getReplyTo()),
-                'sender' => $this->formatRecipients([$email->getSender()]),
             ],
         ];
+
+        if ($ccRecipients = $email->getCc()) {
+            if ($this->validateRecipients($ccRecipients)) {
+                $emailData['message']['ccRecipients'] = $this->formatRecipients($ccRecipients);
+            }
+        }
+
+        if ($bccRecipients = $email->getBcc()) {
+            if ($this->validateRecipients($bccRecipients)) {
+                $emailData['message']['bccRecipients'] = $this->formatRecipients($bccRecipients);
+            }
+        }
+
+        if ($replyTo = $email->getReplyTo()) {
+            if ($this->validateRecipients($replyTo)) {
+                $emailData['message']['replyTo'] = $this->formatRecipients($replyTo);
+            }
+        }
+
+        if ($sender = $email->getSender()) {
+            if ($this->validateRecipients([$sender])) {
+                $emailData['message']['sender'] = $this->formatRecipients([$sender]);
+            }
+        }
 
         foreach ($email->getAttachments() as $attachment) {
             $headers = $attachment->getPreparedHeaders();
@@ -75,13 +104,23 @@ class M365Transport extends AbstractTransport
         }
 
         $client = new Client();
-        $client->post('https://graph.microsoft.com/v1.0/me/sendMail', [
+        $client->post("https://graph.microsoft.com/v1.0/users/{$fromAddress}/sendMail", [
             'headers' => [
                 'Authorization' => "Bearer {$accessToken}",
                 'Content-Type' => 'application/json',
             ],
             'json' => $emailData,
         ]);
+    }
+
+    protected function validateRecipients($recipients)
+    {
+        foreach ($recipients as $recipient) {
+            if (!filter_var($recipient->getAddress(), FILTER_VALIDATE_EMAIL)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected function formatRecipients($recipients)

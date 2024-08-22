@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-use EZStoritve\Services\MicrosoftGraphService;
+use EZStoritve\M365Mail\Services\MicrosoftGraphService;
 
 class M365MailServiceProvider extends PackageServiceProvider
 {

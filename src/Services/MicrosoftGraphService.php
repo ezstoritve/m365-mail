@@ -18,7 +18,17 @@ class MicrosoftGraphService
     ) {
     }
 
-    protected function getAccessToken(): string
+    public function getMailFromAddress(): string
+    {
+        return $this->mailFromAddress;
+    }
+
+    public function getMailFromName(): string
+    {
+        return $this->mailFromName;
+    }
+
+    public function getAccessToken(): string
     {
         if (Cache::has('ez_microsoft_graph_access_token')) {
             return Cache::get('ez_microsoft_graph_access_token');
