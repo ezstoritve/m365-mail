@@ -1,0 +1,54 @@
+{
+    "name": "ezstoritve/m365-mail",
+    "description": "Laravel M365 Mail Package using the MSGraph API",
+    "keywords": [
+        "EZStoritve",
+        "laravel",
+        "m365-mail"
+    ],
+    "homepage": "https://github.com/ezstoritve/m365-mail",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Egi Žaberl",
+            "email": "egi@ezstoritve.com",
+            "homepage": "https://ezstoritve.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0",
+        "spatie/laravel-package-tools": "^1.14.0",
+        "symfony/mailer": "^6.0|^7.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.5",
+        "orchestra/testbench": "^7.0|^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "EZStoritve\\M365Mail\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EZStoritve\\M365Mail\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php vendor/bin/testbench package:discover --ansi",
+        "analyse": "@php vendor/bin/phpstan analyse",
+        "test": "@php vendor/bin/pest",
+        "test-coverage": "@php vendor/bin/pest --coverage",
+        "format": "@php vendor/bin/pint"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EZStoritve\\M365Mail\\M365MailServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
