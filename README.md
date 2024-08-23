@@ -112,6 +112,50 @@ $result = Mail::read([
 print_r($result);
 ```
 
+The Mail::read method returns an array containing the following fields:
+
+- id: The unique identifier of the email.
+- subject: The subject line of the email.
+- from: The sender's email address.
+- fromName: The sender's display name.
+- bodyPreview: A preview of the email body.
+- receivedDateTime: The timestamp when the email was received.
+- hasAttachments: Boolean indicating if the email has attachments.
+- to: An array of recipients, including their addresses and names.
+- cc: An array of CC recipients with their addresses and names.
+- bcc: An array of BCC recipients with their addresses and names.
+- attachments: An array of attachments, each including the filename and contentBytes (if GetFiles is true, allowing manual download).
+
+```php
+$emailDetails = [
+    'id' => $email['id'],
+    'subject' => $email['subject'],
+    'from' => $email['from']['emailAddress']['address'],
+    'fromName' => $email['from']['emailAddress']['name'],
+    'bodyPreview' => $email['bodyPreview'],
+    'receivedDateTime' => $email['receivedDateTime'],
+    'hasAttachments' => $email['hasAttachments'],
+    'to' => array_map(fn($recipient) => [
+        'address' => $recipient['emailAddress']['address'],
+        'name' => $recipient['emailAddress']['name'],
+    ], $email['toRecipients'] ?? []),
+    'cc' => array_map(fn($recipient) => [
+        'address' => $recipient['emailAddress']['address'],
+        'name' => $recipient['emailAddress']['name'],
+    ], $email['ccRecipients'] ?? []),
+    'bcc' => array_map(fn($recipient) => [
+        'address' => $recipient['emailAddress']['address'],
+        'name' => $recipient['emailAddress']['name'],
+    ], $email['bccRecipients'] ?? []),
+    'attachments' => [
+        0 => [
+            'name' => 'file name', 
+            'contentBytes' => '' // if GetFiles is set to true - you can manualy download files in Mail:read function
+        ],
+        ...
+    ]
+];
+```
 
 ## Changelog
 
