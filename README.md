@@ -1,6 +1,8 @@
 # Laravel M365 Mail Package
 
-This package provides a simple access to Microsoft M365 mail functions.
+This package provides seamless access to Microsoft M365 mail functions, allowing you to integrate email handling within your Laravel application effortlessly. 
+It supports sending and reading emails using the Microsoft Graph API, making it easy to work with M365 mailboxes directly from your code. 
+With this package, you can leverage features like sending, fetching emails and downloading attachments, all while securely managing authentication through your Microsoft Azure App credentials.
 
 ## Installation
 
@@ -18,7 +20,7 @@ composer require ezstoritve/m365-mail
 
 ### Configuring your Laravel app
 
-First you need to add a new entry to the mail drivers array (mailers) in your `config/mail.php` configuration file:
+To integrate the m365-mail driver, begin by adding a new entry to the mailers array in your config/mail.php configuration file:
 
 ```php
 'mailers' => [
@@ -33,8 +35,9 @@ First you need to add a new entry to the mail drivers array (mailers) in your `c
     ...
 ]
 ```
+This entry configures the m365-mail transport and sets the required credentials and sender information.
 
-Then set up variables in an .env file to use data from Microsoft Azure App.
+Next, configure the following variables in your .env file to use the credentials from your Microsoft Azure App:
 
 ```dotenv
 MAIL_MAILER=m365-mail
@@ -44,6 +47,8 @@ MICROSOFT_CLIENT_SECRET="your_client_secret_value"
 MAIL_FROM_ADDRESS="from.mail@domain.com"
 MAIL_FROM_NAME="from_name"
 ```
+
+These variables will be used to authenticate and send emails through the Microsoft Graph API, ensuring your Laravel application is properly connected to your Azure setup.
 
 # Usage
 
