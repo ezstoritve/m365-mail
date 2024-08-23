@@ -10,6 +10,15 @@ You can install the package via composer:
 
 
 ```bash
+// add repository to composer.json in your project
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/ezstoritve/m365-mail.git"
+    }
+],
+    
+// install package
 composer require ezstoritve/m365-mail
 ```
 
