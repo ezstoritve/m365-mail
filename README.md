@@ -8,6 +8,7 @@ With this package, you can leverage features like sending, fetching emails and d
 
 You can install the package via composer:
 
+
 ```bash
 composer require ezstoritve/m365-mail
 ```
