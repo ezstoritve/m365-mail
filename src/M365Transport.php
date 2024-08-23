@@ -18,6 +18,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 
 use EZStoritve\M365Mail\Services\MicrosoftGraphService;
+use EZStoritve\M365Mail\Mail\M365Message;
 
 use GuzzleHttp\Client;
 
@@ -42,8 +43,10 @@ class M365Transport extends AbstractTransport
     protected function doSend(SentMessage $sentMessage): void
     {
         $accessToken = $this->microsoftGraphService->getAccessToken();
-
         $email = MessageConverter::toEmail($sentMessage->getOriginalMessage());
+
+        $headers = $email->getHeaders();
+        $saveToSentItems = strtolower($headers->getHeaderBody('X-Save')) === 'true';
 
         if ($email->getFrom()) {
             $fromAddress = $email->getFrom()[0]->getAddress();
@@ -63,6 +66,7 @@ class M365Transport extends AbstractTransport
                 ],
                 'toRecipients' => $this->formatRecipients($email->getTo()),
             ],
+            'saveToSentItems' => $saveToSentItems,
         ];
 
         if ($ccRecipients = $email->getCc()) {

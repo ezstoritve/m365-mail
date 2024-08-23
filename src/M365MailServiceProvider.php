@@ -8,6 +8,7 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 use EZStoritve\M365Mail\Services\MicrosoftGraphService;
+use EZStoritve\M365Mail\Enums\MailReadParams;
 
 class M365MailServiceProvider extends PackageServiceProvider
 {
@@ -27,6 +28,15 @@ class M365MailServiceProvider extends PackageServiceProvider
                 mailFromAddress: $config['from_address'],
                 mailFromName: $config['from_name']
             ));
+        });
+
+        Mail::macro('read', function ($params, $callback) {
+            $service = app(MicrosoftGraphService::class);
+            $emails = $service->readEmailsFromFolder($params);
+            if (is_callable($callback)) {
+                return $callback($emails);
+            }
+            return $emails;
         });
     }
 
