@@ -10,7 +10,7 @@ You can install the package via composer:
 
 
 ```bash
-// add repository to composer.json in your project
+// add repository to composer.json in your project - not needed anymore as package is on https://packagist.org/packages/ezstoritve/m365-mail
 "repositories": [
     {
         "type": "vcs",
