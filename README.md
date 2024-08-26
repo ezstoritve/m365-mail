@@ -1,4 +1,4 @@
-[![Github All Releases](https://img.shields.io/github/downloads/ezstoritve/m365-mail/total.svg)]()
+[![Github First release](https://img.shields.io/github/downloads/ezstoritve/m365-mail/total.svg)]()
 
 # Laravel M365 Mail Package
 
