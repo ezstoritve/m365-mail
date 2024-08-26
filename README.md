@@ -1,4 +1,4 @@
-[![Latest Stable Version](http://img.shields.io/github/release/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail) [![Total Downloads](http://img.shields.io/packagist/dm/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail)
+[![Latest Stable Version](http://img.shields.io/github/release/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail) [![Total Downloads](http://img.shields.io/packagist/dm/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail) [![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/egizaberl)
 
 # Laravel M365 Mail Package
 
