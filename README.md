@@ -1,3 +1,5 @@
+[![Latest Stable Version](http://img.shields.io/github/release/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail) [![Total Downloads](http://img.shields.io/packagist/dm/ezstoritve/m365-mail.svg)](https://packagist.org/packages/ezstoritve/m365-mail)
+
 # Laravel M365 Mail Package
 
 This package provides seamless access to Microsoft M365 mail functions, allowing you to integrate email handling within your Laravel application effortlessly. 
