@@ -53,9 +53,9 @@ Next, configure the following variables in your .env file to use the credentials
 
 ```dotenv
 MAIL_MAILER=m365-mail
-MICROSOFT_TENANT_ID="your_tenant_id"
-MICROSOFT_CLIENT_ID="your_client_id"
-MICROSOFT_CLIENT_SECRET="your_client_secret_value"
+MICROSOFT_GRAPH_TENANT_ID="your_tenant_id"
+MICROSOFT_GRAPH_CLIENT_ID="your_client_id"
+MICROSOFT_GRAPH_CLIENT_SECRET="your_client_secret_value"
 MAIL_FROM_ADDRESS="from.mail@domain.com"
 MAIL_FROM_NAME="from_name"
 ```
