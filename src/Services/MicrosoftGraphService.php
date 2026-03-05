@@ -93,7 +93,9 @@ class MicrosoftGraphService
         $accessToken = $this->getAccessToken();
 
         $client = new Client();
-
+        
+        $emailsData = [];
+        
         $folders = explode('\\', $folderPath);
         $currentFolderId = null;
 
@@ -135,7 +137,6 @@ class MicrosoftGraphService
 
         $emails = json_decode($response->getBody()->getContents(), true);
 
-        $emailsData = [];
         foreach ($emails['value'] as $email)
         {
             $emailDetails = [
@@ -191,4 +192,5 @@ class MicrosoftGraphService
 
         return $emailsData;
     }
+
 }
